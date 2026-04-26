@@ -8,6 +8,7 @@
 <link rel="icon" type="image/png" href="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAWACADASIAAhEBAxEB/8QAGgAAAQUBAAAAAAAAAAAAAAAAAAIFBgcIBP/EACsQAAIBAwMDAwIHAAAAAAAAAAECAwQFEQYSIQAHMRMiUSMyCBRBQmFxgf/EABcBAQEBAQAAAAAAAAAAAAAAAAQCAQP/xAAlEQACAQMDAgcAAAAAAAAAAAABAgMAETEEEkEhgRMiYXGRobH/2gAMAwEAAhEDEQA/ANHa67hU1jhLQSRIgfYJJFy0rDGRGuRkYI9xwoyOeR0w6Xr6rWpZRc0SWAZ+pUyGRxuJ+2MovGSOAeMcnz1Uf4iLNfrl3Pez2mFxHHJS09BTKdqvvQFBk+AWE5zx9jD9Opr2x7Za3sV0orncq6kio4kX1laofIj5LqCCu3B5B8ef9PLLKkoVFuOl+9cG1Epe0Ysv381YVRYtU26Atba/1QpLlIqhkdj84k3K3zgkA/PStPa6me+PbrxB6SS1Bhicx7HgfjbHMpPBI5DD2sT7cjnpin76aaguN+op6WpC2oTMsq4YTCNo1G35LFmI/hR89c1BLfb13AhtVY1qrLVU00NxjjkgJeWINuEnLeATH7sYJIUBdpPTXRgOq0qCVZC29gQBznt6+9TfuFoah1YaOuSoa3Xq3uHoq+NA5Q5ztdTjemecZBB5BB6ofutc+4ulIam03i80FTT1UDRMYDISUdSCeduDg+Mn+z0dHUeBHMLuMYyPyg6nyC681HO2Gjr/AK3FVS0dVaoIKiCSGcyoykRv6e7AUHcfpj9y+Tz1qLQWjqPStLK35qa4XKpVFqq6cAM6oMIiqOEjUE7UHjJJJJJJ0dW6hFAHNZpVBG45r//Z"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 /* ========= RESET & BASE ========= */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -1111,11 +1112,11 @@ footer{background:var(--bg-alt);border-top:1px solid rgba(0,90,182,.07);padding:
           <div class="form-row2">
             <div>
               <label class="form-label">Nom Complet</label>
-              <input class="form-input" type="text" placeholder="Votre nom" autocomplete="name"/>
+              <input id="rdv-nom" class="form-input" type="text" placeholder="Votre nom" autocomplete="name"/>
             </div>
             <div>
               <label class="form-label">Service Souhaité</label>
-              <select class="form-input">
+              <select id="rdv-service" class="form-input">
                 <option>Médecine Générale</option>
                 <option>Pédiatrie</option>
                 <option>Cardiologie</option>
@@ -1128,14 +1129,14 @@ footer{background:var(--bg-alt);border-top:1px solid rgba(0,90,182,.07);padding:
           </div>
           <div class="form-group">
             <label class="form-label">Téléphone</label>
-            <input class="form-input" type="tel" placeholder="+225 07 00 00 00 00" autocomplete="tel"/>
+            <input id="rdv-tel" class="form-input" type="tel" placeholder="+225 07 00 00 00 00" autocomplete="tel"/>
           </div>
           <div class="form-group">
             <label class="form-label">Date préférée</label>
-            <input class="form-input" type="date"/>
+            <input id="rdv-date" class="form-input" type="date"/>
           </div>
-          <button class="btn-form" onclick="submitForm(this)">Confirmer le Rendez-vous</button>
-          <p class="form-note">✅ Réponse garantie sous 2 heures ouvrées</p>
+          <button id="rdv-btn" class="btn-form" onclick="submitRdv(this)">Confirmer le Rendez-vous</button>
+          <p class="form-note" id="rdv-note">✅ Réponse garantie sous 2 heures ouvrées</p>
         </div>
       </div>
     </div>
@@ -1263,14 +1264,70 @@ const countIO = new IntersectionObserver(entries=>{
 },{threshold:.6});
 document.querySelectorAll('#stats').forEach(el=>countIO.observe(el));
 
-// FORM SUBMIT
-function submitForm(btn){
-  btn.textContent='⏳ Envoi en cours...';
-  btn.disabled=true;
-  setTimeout(()=>{
-    btn.textContent='✅ Rendez-vous confirmé !';
-    setTimeout(()=>{btn.textContent='Confirmer le Rendez-vous';btn.disabled=false;},3500);
-  },1500);
+// ========= SUPABASE CONFIG =========
+// 👉 Tableau de bord Supabase > Settings > API
+//    SUPABASE_URL  → "Project URL"        (ex: https://abcdefgh.supabase.co)
+//    SUPABASE_KEY  → "Publishable" key    (commence par sb_publishable_...)
+// ⚠️  Ne JAMAIS mettre la clé "Secret" (sb_secret_...) ici — code visible publiquement !
+const SUPABASE_URL  = 'https://oqjmwldnwxyvcvacmtft.supabase.co'; // 👈 remplace par ton Project URL
+const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xam13bGRud3h5dmN2YWNtdGZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMDI4NTUsImV4cCI6MjA5Mjc3ODg1NX0.YvCs2E9VNGEmjd99aMp9F1vqHR53V6QHZOn2gSXMSpk'; // ta clé Publishable
+
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ---- Realtime : écoute tous les changements sur la table rendez_vous ----
+const channel = _supabase.channel('custom-all-channel')
+  .on(
+    'postgres_changes',
+    { event: '*', schema: 'public', table: 'rendez_vous' },
+    (payload) => {
+      console.log('[Supabase Realtime] Changement reçu :', payload);
+    }
+  )
+  .subscribe((status) => {
+    console.log('[Supabase Realtime] Statut :', status);
+  });
+
+// ---- Soumission du formulaire ----
+async function submitRdv(btn) {
+  const nom      = document.getElementById('rdv-nom').value.trim();
+  const service  = document.getElementById('rdv-service').value;
+  const tel      = document.getElementById('rdv-tel').value.trim();
+  const date_rdv = document.getElementById('rdv-date').value;
+  const note     = document.getElementById('rdv-note');
+
+  if (!nom || !tel || !date_rdv) {
+    note.textContent = '⚠️ Veuillez remplir tous les champs obligatoires.';
+    note.style.color = '#ffd0d0';
+    return;
+  }
+
+  btn.textContent = '⏳ Envoi en cours...';
+  btn.disabled = true;
+  note.textContent = '';
+
+  const { data, error } = await _supabase
+    .from('rendez_vous')
+    .insert([{ nom, service, telephone: tel, date_preferee: date_rdv }])
+    .select();
+
+  if (error) {
+    console.error('[Supabase] Erreur insert :', error);
+    btn.textContent = 'Confirmer le Rendez-vous';
+    btn.disabled = false;
+    note.textContent = '❌ Une erreur est survenue. Veuillez réessayer.';
+    note.style.color = '#ffd0d0';
+  } else {
+    console.log('[Supabase] RDV enregistré :', data);
+    btn.textContent = '✅ Rendez-vous confirmé !';
+    note.textContent = '✅ Réponse garantie sous 2 heures ouvrées';
+    note.style.color = '';
+    // Réinitialise le formulaire après 4 s
+    setTimeout(() => {
+      btn.textContent = 'Confirmer le Rendez-vous';
+      btn.disabled = false;
+      ['rdv-nom','rdv-tel','rdv-date'].forEach(id => document.getElementById(id).value = '');
+    }, 4000);
+  }
 }
 
 // SMOOTH SCROLL
